@@ -1,0 +1,212 @@
+﻿<Window x:Class="nTrehou_Pendu.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:nTrehou_Pendu"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="750" 
+        KeyDown="Keypress"
+        AllowsTransparency="True" 
+        WindowStyle="None" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" Background="{x:Null}"
+        >
+    <!---->
+    <Border CornerRadius="25,25,25,25">
+        <Border.Background>
+            <ImageBrush ImageSource="/mainBackground.jpg"/>
+        </Border.Background>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.Resources>
+                <Style x:Key="horizontalStackpanel" TargetType="StackPanel">
+                    <Setter Property="Orientation" Value="Horizontal"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Margin" Value="0,20,0,0"/>
+                </Style>
+                <Style TargetType="Label">
+                    <Setter Property="Margin" Value="10" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="FontSize" Value="45" />
+                    <Setter Property="FontFamily" Value="{StaticResource erasdust}"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+
+                </Style>
+            </Grid.Resources>
+            <StackPanel Name="WordPanel" Style="{StaticResource horizontalStackpanel}" Grid.Row="0" Grid.ColumnSpan="2">
+                <StackPanel.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="Margin" Value="10" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="FontSize" Value="45" />
+                        <Setter Property="FontFamily" Value="{StaticResource erasdust}"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="BorderBrush" Value="White"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                    </Style>
+                </StackPanel.Resources>
+            </StackPanel>
+            <Label Name="tb_LetterTry" Grid.Row="1" Grid.Column="1"/>
+            <Image x:Name="imgTries" Grid.Row="2" Grid.RowSpan="3" Grid.Column="1" Source="/0hanged.png"/>
+            <Grid Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Name="AlphabetGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="FontSize" Value="27" />
+                        <Setter Property="FontFamily" Value="{StaticResource erasdust}"/>
+                        <Setter Property="Margin" Value="5" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Cursor" Value="Hand" />
+                    </Style>
+                    <!-- Change the cursor when the mouse is over the button -->
+                    
+                </Grid.Resources>
+                <!--create alphabet button from grid-->
+                <Button Name="btn_a" Grid.Row="0" Grid.Column="0" Content="A" Click="onClick_Letter"/>
+                <Button Name="btn_b" Grid.Row="0" Grid.Column="1" Content="B" Click="onClick_Letter"/>
+                <Button Name="btn_c" Grid.Row="0" Grid.Column="2" Content="C" Click="onClick_Letter"/>
+                <Button Name="btn_d" Grid.Row="0" Grid.Column="3" Content="D" Click="onClick_Letter"/>
+
+                <Button Name="btn_e" Grid.Row="1" Grid.Column="0" Content="E" Click="onClick_Letter"/>
+                <Button Name="btn_f" Grid.Row="1" Grid.Column="1" Content="F" Click="onClick_Letter"/>
+                <Button Name="btn_g" Grid.Row="1" Grid.Column="2" Content="G" Click="onClick_Letter"/>
+                <Button Name="btn_h" Grid.Row="1" Grid.Column="3" Content="H" Click="onClick_Letter"/>
+
+                <Button Name="btn_i" Grid.Row="2" Grid.Column="0" Content="I" Click="onClick_Letter"/>
+                <Button Name="btn_j" Grid.Row="2" Grid.Column="1" Content="J" Click="onClick_Letter"/>
+                <Button Name="btn_k" Grid.Row="2" Grid.Column="2" Content="K" Click="onClick_Letter"/>
+                <Button Name="btn_l" Grid.Row="2" Grid.Column="3" Content="L" Click="onClick_Letter"/>
+                
+                <Button Name="btn_m" Grid.Row="3" Grid.Column="0" Content="M" Click="onClick_Letter"/>
+                <Button Name="btn_n" Grid.Row="3" Grid.Column="1" Content="N" Click="onClick_Letter"/>
+                <Button Name="btn_o" Grid.Row="3" Grid.Column="2" Content="O" Click="onClick_Letter" Cursor="Hand"/>
+                <Button Name="btn_p" Grid.Row="3" Grid.Column="3" Content="P" Click="onClick_Letter"/>
+
+                <Button Name="btn_q" Grid.Row="4" Grid.Column="0" Content="Q" Click="onClick_Letter"/>
+                <Button Name="btn_r" Grid.Row="4" Grid.Column="1" Content="R" Click="onClick_Letter"/>
+                <Button Name="btn_s" Grid.Row="4" Grid.Column="2" Content="S" Click="onClick_Letter"/>
+                <Button Name="btn_t" Grid.Row="4" Grid.Column="3" Content="T" Click="onClick_Letter"/>
+
+                <Button Name="btn_u" Grid.Row="5" Grid.Column="0" Content="U" Click="onClick_Letter"/>
+                <Button Name="btn_v" Grid.Row="5" Grid.Column="1" Content="V" Click="onClick_Letter"/>
+                <Button Name="btn_w" Grid.Row="5" Grid.Column="2" Content="W" Click="onClick_Letter"/>
+                <Button Name="btn_x" Grid.Row="5" Grid.Column="3" Content="X" Click="onClick_Letter"/>
+
+                <Button Name="btn_y" Grid.Row="6" Grid.Column="1" Content="Y" Click="onClick_Letter"/>
+                <Button Name="btn_z" Grid.Row="6" Grid.Column="2" Content="Z" Click="onClick_Letter"/>
+
+                <Button Name="btn_restart" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="4" Click="onClick_restart" BorderThickness="0">
+                <Button.Background>
+                        <ImageBrush ImageSource="/restart.png"/>
+                    </Button.Background>
+                </Button>
+            </Grid>
+
+        </Grid>
+        
+        
+        
+        <!--<StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Style>
+            </StackPanel.Resources>
+            <StackPanel Name="WordGrid" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,0">
+
+            </StackPanel>
+            <TextBlock Text="Lettres déjà proposées : "  FontFamily="EraserDust"/>
+            
+            <TextBlock Text="Nombre de vie restantes  : " />
+
+            --><!-- Grid for alphabets --><!--
+            <Grid Name="AlphabetGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Name="btn_a"  Grid.Row="0" Grid.Column="0" Content="A" Click="onClick_Letter" Height="20" Grid.RowSpan="2" VerticalAlignment="Top" />
+                <Button Name="btn_b"  Grid.Row="0" Grid.Column="1" Content="B" Click="onClick_Letter" />
+                <Button Name="btn_c"  Grid.Row="0" Grid.Column="2" Content="C" Click="onClick_Letter" />
+                <Button Name="btn_d"  Grid.Row="0" Grid.Column="3" Content="D" Click="onClick_Letter" />
+                <Button Name="btn_e"  Grid.Row="0" Grid.Column="4" Content="E" Click="onClick_Letter" />
+                <Button Name="btn_f"  Grid.Row="0" Grid.Column="5" Content="F" Click="onClick_Letter" />
+                <Button Name="btn_g"  Grid.Row="0" Grid.Column="6" Content="G" Click="onClick_Letter" />
+                <Button Name="btn_h"  Grid.Row="0" Grid.Column="7" Content="H" Click="onClick_Letter" />
+                <Button Name="btn_i"  Grid.Row="0" Grid.Column="8" Content="I" Click="onClick_Letter" />
+                <Button Name="btn_j"  Grid.Row="0" Grid.Column="9" Content="J" Click="onClick_Letter" />
+                <Button Name="btn_k"  Grid.Row="0" Grid.Column="10" Content="K" Click="onClick_Letter" />
+                <Button Name="btn_l"  Grid.Row="0" Grid.Column="11" Content="L" Click="onClick_Letter" />
+
+                <Button Name="btn_m"  Grid.Row="1" Grid.Column="0" Content="M" Click="onClick_Letter" />
+                <Button Name="btn_n"  Grid.Row="1" Grid.Column="1" Content="N" Click="onClick_Letter" />
+                <Button Name="btn_o"  Grid.Row="1" Grid.Column="2" Content="O" Click="onClick_Letter" />
+                <Button Name="btn_p"  Grid.Row="1" Grid.Column="3" Content="P" Click="onClick_Letter" />
+                <Button Name="btn_q"  Grid.Row="1" Grid.Column="4" Content="Q" Click="onClick_Letter" />
+                <Button Name="btn_r"  Grid.Row="1" Grid.Column="5" Content="R" Click="onClick_Letter" />
+                <Button Name="btn_s"  Grid.Row="1" Grid.Column="6" Content="S" Click="onClick_Letter" />
+                <Button Name="btn_t"  Grid.Row="1" Grid.Column="7" Content="T" Click="onClick_Letter" />
+                <Button Name="btn_u"  Grid.Row="1" Grid.Column="8" Content="U" Click="onClick_Letter" />
+                <Button Name="btn_v"  Grid.Row="1" Grid.Column="9" Content="V" Click="onClick_Letter" />
+                <Button Name="btn_w"  Grid.Row="1" Grid.Column="10" Content="W" Click="onClick_Letter" />
+                <Button Name="btn_x"  Grid.Row="1" Grid.Column="11" Content="X" Click="onClick_Letter" />
+
+                <Button Name="btn_y"  Grid.Row="2" Grid.Column="0" Content="Y" Click="onClick_Letter" />
+                <Button Name="btn_z"  Grid.Row="2" Grid.Column="1" Content="Z" Click="onClick_Letter" />
+            </Grid>
+            <Button Name="btn_restart" Height="50" Content="Redemarer avec un nouveau mot" Click="onClick_restart"></Button>
+
+        </StackPanel>-->
+    </Border>    
+</Window>

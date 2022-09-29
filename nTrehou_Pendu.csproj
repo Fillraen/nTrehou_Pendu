@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="0hanged.png" />
+    <None Remove="mainBackground.jpg" />
+    <None Remove="ressource\img\pendu\0hanged.png" />
+    <None Remove="ressource\img\pendu\1hanged.png" />
+    <None Remove="ressource\img\pendu\2hanged.png" />
+    <None Remove="ressource\img\pendu\3hanged.png" />
+    <None Remove="ressource\img\pendu\4hanged.png" />
+    <None Remove="ressource\img\pendu\5hanged.png" />
+    <None Remove="ressource\img\pendu\6hanged.png" />
+    <None Remove="restart.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="0hanged.png" />
+    <Resource Include="mainBackground.jpg" />
+    <Resource Include="ressource\font\erasdust.ttf" />
+    <Resource Include="ressource\img\pendu\0hanged.png" />
+    <Resource Include="ressource\img\pendu\1hanged.png" />
+    <Resource Include="ressource\img\pendu\2hanged.png" />
+    <Resource Include="ressource\img\pendu\3hanged.png" />
+    <Resource Include="ressource\img\pendu\4hanged.png" />
+    <Resource Include="ressource\img\pendu\5hanged.png" />
+    <Resource Include="ressource\img\pendu\6hanged.png" />
+    <Resource Include="restart.png" />
+  </ItemGroup>
+
+</Project>
