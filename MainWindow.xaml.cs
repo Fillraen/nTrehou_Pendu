@@ -2,8 +2,10 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,6 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -27,20 +30,25 @@ namespace nTrehou_Pendu
     /// </summary>
     public partial class MainWindow : Window
     {
-        // aficher les tiret
-
-        private List<Label> Labels { get; set; }
+        private List<Label> Labels { get; set; } 
         public MainWindow()
         {
             InitializeComponent();
-            Labels = new List<Label>();
-            startNewGame();
-
-        }
+            Labels = new List<Label>(); 
+            
+            //Create a timer
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);               // interval 1 second
+            timer.Tick += Timer_Tick; 
+            timer.Start(); 
+            
+            StartNewGame(); 
+        } 
         Game Hanged = new Game();
-        char letterTry = ' ';
-        string Letters = "";
-        char[] Alphabet = new char[]
+        int timeTimer = 61;                                         // 61 annd not 60 because the timer start at 0
+        char letterTry = ' ';                                       // letter try by the player
+        string Letters = "";                                        // all the letters try by the player
+        char[] Alphabet = new char[] 
         {
             'a', 'b', 'c', 'd', 'e',
             'f', 'g', 'h', 'i', 'j',
@@ -50,97 +58,17 @@ namespace nTrehou_Pendu
             'z'
         };
 
-        public void startNewGame()
-        {
-            Letters = Hanged.GetLetters();
-            if (Letters != string.Empty)
-            {
-                Hanged.Reset();
-            }
-            tb_LetterTry.Content = ""; ; // reset all the letter try
-
-            Uri img = new Uri(Hanged.GetImage(), UriKind.Relative); // set the img to the first one
-            imgTries.Source = new BitmapImage(img);
-            // reset all the labels
-            Labels.Clear();
-            WordPanel.Children.Clear();
-
-
-            allBtnAlphabet(true); // enable all the button
-            CreateCharactereLbl(Hanged.GetWord().Length);
-        }
-        private void onClick_restart(object sender, RoutedEventArgs e)
-        {
-            startNewGame();
-        }
-        private void onClick_Letter(object sender, RoutedEventArgs e)
-        {
-            Button letter = sender as Button;
-            letterTry = letter.Content.ToString()[0];
-            tryLetter(letterTry);
-
-        }
-        private void Keypress(object sender, KeyEventArgs e)
-        {
-            if (!Hanged.IsLost() || !Hanged.IsWon())
-            {
-
-            }
-            letterTry = e.Key.ToString().ToLower()[0]; // verifier si j'ai gagner ou perdu bloquer ici
-            tryLetter(letterTry);
-        }
-        private void tryLetter(char letter)
-        {
-            letterTry = letter.ToString().ToLower()[0];
-            Hanged.Try(letterTry);
-            tb_LetterTry.Content = Hanged.GetLetters();
-            revealGoodLetter(letterTry);
-
-
-            Button btn = GetBtn(letterTry);
-            btn.IsEnabled = false;
-            Uri img = new Uri(Hanged.GetImage(), UriKind.Relative);
-            imgTries.Source = new BitmapImage(img);
-
-            if (Hanged.IsLost())
-            {
-                MessageBox.Show("Dommage !" + " Le mot était : " + Hanged.GetWord());
-                startNewGame();
-            }
-            else if (Hanged.IsWon())
-            {
-                MessageBox.Show("Bravo !" + " Le mot était : " + Hanged.GetWord());
-                startNewGame();
-            }
-        }
-
-        private void revealGoodLetter(char letter)
-        {
-            int index = Hanged.GetWord().IndexOf(letter);
-            while (index != -1)
-            {
-                Labels[index].Content = letter;
-                index = Hanged.GetWord().IndexOf(letter, index + 1);
-            }
-        } // reveal the good letter in the word
-
-        private Button GetBtn(char c)
-        {
-            string btn_Name = "btn_" + c;
-            Button btn = (Button)System.Windows.Application.Current.MainWindow.FindName(btn_Name);
-            return btn;
-        } // Fin a button on my window from his name
         #region Create Game field
         private void CreateCharactereLbl(int lenght)
         {
             Random rnd = new Random();
             for (int i = 0; i < lenght; i++)
             {
-                Label label = new Label();
-                label.RenderTransform = new RotateTransform(rnd.Next(-7, 7));
+                Label label = new Label(); 
+                label.RenderTransform = new RotateTransform(rnd.Next(-7, 7));   // random rotation -7° to 7°
 
                 label.Name = "Character" + i.ToString();
-                if (Hanged.GetWord()[i] == '-')
+                if (Hanged.GetWord()[i] == '-')                                 // To display the - in the word
                 {
                     label.Content = "_";
                 }
@@ -149,13 +77,13 @@ namespace nTrehou_Pendu
                     label.Content = "?";
                 }
                 Labels.Add(label);
-                WordPanel.Children.Add(label);
+                WordPanel.Children.Add(label);                                  // add the label to the panel
 
             }
         }
-        private void allBtnAlphabet(bool status)
+        private void AllBtnAlphabet(bool status)
         {
-            if (status)
+            if (status) 
             {
                 foreach (char i in Alphabet)
                 {
@@ -171,7 +99,117 @@ namespace nTrehou_Pendu
                     btnLetter.IsEnabled = false;
                 }
             }
-        } // get all the Alphabet button enabled or disabled
+        }                 // get all the Alphabet button enabled or disabled
+        #endregion
+        
+        #region start a new game
+        public void StartNewGame()
+        {
+            Letters = Hanged.GetLetters();                          // get the letters try by the player
+            if (Letters != string.Empty)
+            {
+                Hanged.Reset();                                     // reset the game
+            }
+            tb_Timer.Content = 60.ToString();                       // reset the timer
+            Hanged.SetTime(timeTimer);                              // set the time to the game
+            
+            tb_LetterTry.Content = ""; ;                            // reset all the letter try
+            
+            Uri img = new Uri(Hanged.GetImage(), UriKind.Relative); // reset img state
+            imgTries.Source = new BitmapImage(img);                 // reset img state
+
+            Labels.Clear();                                         // clear the list of labels
+            WordPanel.Children.Clear();                             // clear the panel of labels
+            AllBtnAlphabet(true);                                   // enable all the button
+            CreateCharactereLbl(Hanged.GetWord().Length);
+
+        }
+        #endregion
+
+        #region Manage input
+        private void Keypress(object sender, KeyEventArgs e)        
+        {
+            if (e.Key >= Key.A && e.Key <= Key.Z)                   // if the key is a letter
+            {
+                letterTry = e.Key.ToString().ToLower()[0];          // get the letter
+                CheckLetter(letterTry);
+            }
+        }// manage the key press
+        private void OnClick_Letter(object sender, RoutedEventArgs e)
+        {
+            Button letter = sender as Button;
+            letterTry = letter.Content.ToString()[0];
+            CheckLetter(letterTry);
+        }// manage the click on a character button
+        private void OnClick_restart(object sender, RoutedEventArgs e) => StartNewGame(); // manage the click on the restart button
+        #endregion
+
+        #region fonctionnement du jeu
+        private void CheckLetter(char letter)
+        {
+            letterTry = letter.ToString().ToLower()[0]; 
+            Hanged.Try(letterTry); 
+            if (Hanged.GetWord().Contains(letterTry))
+            {
+                RevealGoodLetter(letterTry);
+            }
+            else
+            {
+                Uri img = new Uri(Hanged.GetImage(), UriKind.Relative);
+                imgTries.Source = new BitmapImage(img);
+            }
+            tb_LetterTry.Content = Hanged.GetLetters();
+            Button btn = GetBtn(letterTry);
+            btn.IsEnabled = false;
+
+
+            if (Hanged.IsLost())
+            {
+                MessageBox.Show("Dommage !" + " Le mot était : " + Hanged.GetWord());
+                StartNewGame();
+            }
+            else if (Hanged.IsWon())
+            {
+                MessageBox.Show("Bravo !" + " Le mot était : " + Hanged.GetWord() + " || Vous avez reussi en :" + (61 - Hanged.GetTime()) + " secondes");
+                StartNewGame();
+            }
+        }                   // check if the letter is in the word
+        private void RevealGoodLetter(char letter)
+        {
+            int index = Hanged.GetWord().IndexOf(letter);               // get the index of the letter in the word
+            while (index != -1)
+            {
+                Labels[index].Content = letter; 
+                index = Hanged.GetWord().IndexOf(letter, index + 1);    // search the next letter
+            }
+        }              // reveal the good letter in the word
+        #endregion
+
+        #region Utils
+        private Button GetBtn(char c)
+        {
+            string btn_Name = "btn_" + c;
+            Button btn = (Button)System.Windows.Application.Current.MainWindow.FindName(btn_Name);
+            return btn;
+        }                           // Fin a button on my window from his name
+
+        #endregion
+
+        #region timer
+        void Timer_Tick(object sender, EventArgs e)
+        {
+            int time = Hanged.GetTime();
+            if (time > 0)
+            {
+                Hanged.SetTime(time - 1);
+                tb_Timer.Content = Hanged.GetTime();
+            }
+            else
+            {
+                MessageBox.Show("Dommage !" + " Le mot était : " + Hanged.GetWord());
+                StartNewGame();
+            }
+        }             // timer tick
         #endregion
     }
 }

@@ -18,31 +18,30 @@ namespace nTrehou_Pendu
     internal class Game
     {
         private readonly Random random = new Random();
-        private readonly string[] words = System.IO.File.ReadAllLines("../../../ressource/words.txt");
+        private readonly string[] words = System.IO.File.ReadAllLines("../../../ressource/words.txt"); // read the file words.txt or you can use a list of words
         private string word;
-        private int tries = 6;
-        private string letters = string.Empty;
+        private int tries = 6;      // number of tries-lifes
+        private string letters = string.Empty; 
+        private int time = 61; //how many second to guess
         public Game()
         {
-            this.word = this.words[this.random.Next(this.words.Length)];
-            removeAccent();
+            this.word = this.words[this.random.Next(this.words.Length)]; // choose a random word
+            RemoveAccent(); // remove the accent of the word
         }
-
+        
         public void Try(char letter)
         {
-            if (this.letters.Contains(letter))
+            if (this.letters.Contains(letter)) 
             {
-                return;
+                return; 
             }
-
             this.letters += letter + " ";
-
             if (!this.word.Contains(letter))
             {
                 this.tries--;
             }
-
         }
+        
         public bool IsLost()
         {
             return this.tries <= 0;
@@ -50,7 +49,7 @@ namespace nTrehou_Pendu
 
         public bool IsWon()
         {
-            return this.word.All(this.letters.Contains);
+            return this.word.All(this.letters.Contains); // return true if all the letters of the word are in the letters string
         }
 
         public string GetWord()
@@ -62,49 +61,32 @@ namespace nTrehou_Pendu
         {
             return this.letters;
         }
-
-        public int GetTries()
+        public void SetTries(int tries)
         {
-            return this.tries;
+            this.tries = tries;
         }
-        public void Reset()
-        {
-            this.word = this.words[this.random.Next(this.words.Length)];
-            removeAccent();
-            this.tries = 6;
-            this.letters = "";
-        }
-        public string GetImage()
+        
+        public string GetImage()  
         {
             string image = "ressource/img/pendu/";
-            switch (this.tries)
+            
+            image += this.tries switch 
             {
-                case 6:
-                    image += "0hanged.png";
-                    break;
-                case 5:
-                    image += "1hanged.png";
-                    break;
-                case 4:
-                    image += "2hanged.png";
-                    break;
-                case 3:
-                    image += "3hanged.png";
-                    break;
-                case 2:
-                    image += "4hanged.png";
-                    break;
-                case 1:
-                    image += "5hanged.png";
-                    break;
-                case 0:
-                    image += "6hanged.png";
-                    break;
-            }
-            return image;
+                6 => "0hanged.png",
+                5 => "1hanged.png",
+                4 => "2hanged.png",
+                3 => "3hanged.png",
+                2 => "4hanged.png",
+                1 => "5hanged.png",
+                0 => "6hanged.png",
+                _ => "0hanged.png",
+            };
+            return image; // return the image path
         }
-        public void removeAccent()
+        
+        public void RemoveAccent()
         {
+            
             this.word = this.word.Replace("é", "e");
             this.word = this.word.Replace("è", "e");
             this.word = this.word.Replace("ê", "e");
@@ -120,6 +102,25 @@ namespace nTrehou_Pendu
             this.word = this.word.Replace("ç", "c");
             this.word = this.word.Replace("œ", "oe");
             this.word = this.word.Replace("æ", "ae");
+            
+        } // remove the accent or special character of a word
+        
+        public void Reset()
+        {
+            this.word = this.words[this.random.Next(this.words.Length)]; // choose a new word
+            RemoveAccent(); // remove the accent of the word
+            this.tries = 6; // reset the number of tries
+            this.letters = ""; // reset the letters
+        }
+        
+        public void SetTime(int time)
+        {
+            this.time = time;
+        }
+        
+        public int GetTime()
+        {
+            return this.time;
         }
     }
 }
