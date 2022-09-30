@@ -31,9 +31,13 @@ HANGMAN V2
 HANGMAN V3
  
  - Create HANGMAN with a Class
- 
+
+
 HANGMAN V4
+ 
+  - Put all out words into a txt file and pick one of them 
+ 
+HANGMAN V5
 
  - Set a timer and make the player loose when 0 or say to the player who won how many time he used
-  
   
