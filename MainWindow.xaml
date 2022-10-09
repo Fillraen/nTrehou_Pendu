@@ -127,6 +127,7 @@
 
                 <Button Name="btn_y" Grid.Row="6" Grid.Column="1" Content="Y" Click="OnClick_Letter"/>
                 <Button Name="btn_z" Grid.Row="6" Grid.Column="2" Content="Z" Click="OnClick_Letter"/>
+                <Button Name="btn_hint" Grid.Row="6" Grid.Column="0" Content="hint" Click="OnClick_Hint"/>
 
                 <Button Name="btn_restart" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="4" Click="OnClick_restart" BorderThickness="0">
                     <Button.Background>
