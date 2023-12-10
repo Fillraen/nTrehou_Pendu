@@ -1,43 +1,39 @@
-# nTrehou_Pendu
+# nTrehou_Pendu - Le Jeu du Pendu
 
-Develop a hangman game with your imagination limits
+## 🎮 À propos
+Développez un jeu du pendu en laissant libre cours à votre imagination. Ce projet propose plusieurs versions du jeu, chacune avec ses propres améliorations et caractéristiques.
 
-INSTRUCTIONS FOR PLAYING 
+## 📖 Instructions pour jouer
 
-HANGMAN V1
+### HANGMAN V1
+1. Jouez individuellement ou en groupe.
+2. Sélectionnez une lettre de l'alphabet.
+3. Si la lettre est dans le mot/phrase, prenez un autre tour pour deviner une lettre.
+4. Si la lettre n'est pas dans le mot/phrase, cliquez sur le bouton "Essayer à nouveau" pour ajouter une partie du pendu.
+5. Le jeu continue jusqu'à ce que:
+   - Le mot/phrase soit deviné – GAGNANT
+   - Toutes les parties du pendu soient affichées – PERDANT
 
-1.Play individually or in groups.
+### HANGMAN V2
+- Ajout de design.
 
-2.Have the student select a letter of the alphabet.
+### HANGMAN V3
+- Création du HANGMAN avec une classe.
 
-3.If the letter is contained in the word/phrase, the group or individual takes another turn guessing a letter.
-To reveal a letter (depending on which slide template is used), either:
+### HANGMAN V4
+- Mise de tous les mots dans un fichier txt et sélection aléatoire d'un mot.
 
- - Click on the square with appropriate letter in it to reveal the letter within the word/phrase
+### HANGMAN V5
+- Ajout d'un chronomètre. Le joueur perd si le temps s'écoule ou gagne en voyant le temps utilisé.
 
- - Click on the letter in the alphabet area which will then trigger the letter to be revealed if it is contained in the word/phrase or change the color of the Try Again button indicating that the letter is not contained in the word/phrase
+## 📸 Captures d'écran
+### Hangman V1
+![Hangman V1](hangman.PNG)
 
-4.If the letter is not contained in the word/phrase, click the Try Again button, a portion of the hangman is added.
-
-5.The game continues until:
-
- - the word/phrase is guessed (all letters are revealed) –WINNER
- - all the parts of the hangman are displayed –LOSER
- 
-HANGMAN V2
- 
- - Add design
- 
-HANGMAN V3
- 
- - Create HANGMAN with a Class
+### Hangman V2
+![Hangman V2](hangman2.PNG)
 
 
-HANGMAN V4
- 
-  - Put all out words into a txt file and pick one of them 
- 
-HANGMAN V5
+---
 
- - Set a timer and make the player loose when 0 or say to the player who won how many time he used
-  
+👨‍💻 Développé avec passion par Nicolas Trehou
